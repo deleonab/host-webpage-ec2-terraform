@@ -21,9 +21,12 @@ resource "aws_instance" "website" {
   user_data = <<-EOF
               #!/bin/bash
               sudo apt update
-              sudo apt install -y apache2
+              sudo apt install -y apache2 git
               systemctl start apache2
               systemctl enable apache2
+              git clone https://github.com/deleonab/host-webpage-ec2-terraform.git /tmp/host-webpage-ec2-terraform 
+              sudo mv /tmp/host-webpage-ec2-terraform/index.html /var/www/html/
+              sudo chown www-data:www-data /var/www/html/index.html  # Change ownership to the web server user/group 
               EOF
 
   tags = {
