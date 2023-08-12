@@ -17,7 +17,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "website" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids = [ aws_security_group.my_instance_SG ]
+  vpc_security_group_ids = [ aws_security_group.my_instance_SG.id ]
   user_data = <<-EOF
               #!/bin/bash
               sudo apt update
